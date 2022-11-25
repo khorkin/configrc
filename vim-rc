@@ -1,0 +1,25 @@
+filetype indent on
+set nocompatible
+set nomodeline
+" set textwidth=120
+set incsearch
+set ignorecase
+set hlsearch
+set smartcase
+set tabstop=4
+syntax on
+highlight Comment ctermfg=grey
+" highlight Define ctermfg=green
+au BufEnter,BufRead *.py set smartindent shiftwidth=4 expandtab tabstop=4 softtabstop=4
+au BufEnter,BufRead *.yaml set smartindent shiftwidth=2 expandtab tabstop=2 softtabstop=2
+au BufEnter,BufRead *.yml set smartindent shiftwidth=2 expandtab tabstop=2 softtabstop=2
+au BufEnter,BufRead *.yml.j2 set smartindent shiftwidth=2 expandtab tabstop=2 softtabstop=2
+au BufRead,BufNewFile *.go set filetype=go smartindent shiftwidth=4 softtabstop=4 tabstop=8
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+
+
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endi
+
+au BufEnter,BufRead *.conf set smartindent shiftwidth=4 expandtab tabstop=4 softtabstop=4

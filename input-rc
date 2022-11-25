@@ -1,0 +1,5 @@
+set bind-tty-special-chars off
+C-w: backward-kill-word
+# use page up/page down for incremental search in history
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward

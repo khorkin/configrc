@@ -1,0 +1,164 @@
+Host *
+	ServerAliveInterval	60
+
+
+Host public-autovaz-jump
+	User ubuntu
+	Hostname 146.185.210.26
+	Port 12001
+
+Host avto-vaz-deploy
+	User ubuntu
+	Hostname 10.0.3.8
+	ForwardAgent yes
+	ProxyJump public-autovaz-jump
+
+Host ga-linux-jump
+	User root
+	Hostname 185.179.36.13
+
+Host cor3-s*
+	User ekhorkin
+	ProxyJump ga-linux-jump
+
+Host jet-admin-jump
+	User root
+	Hostname 10.31.128.245
+
+Host deploy01
+	Hostname deploy01.khorkin.private.dev-compute.i
+	User root
+	ProxyJump devpoint
+
+Host network01
+	User root
+	ProxyJump deploy01
+
+Host devpoint
+	User e.khorkin
+    Hostname e-khorkin.devpoint.i
+	PKCS11Provider /lib/x86_64-linux-gnu/opensc-pkcs11.so
+
+Host gen-inventory-test
+	Hostname 10.10.30.85
+    User centos
+	ProxyJump devpoint
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+
+Host idm-deploy
+	Hostname 5.188.143.77
+	User khorkin
+
+Host super-aio
+   HostName 10.10.30.94
+   User root
+
+Host undercloud-deploy-host-khorkin-ps
+	Hostname 10.10.30.21
+	User centos
+	IdentityFile ~/.ssh/khorkin-ps.pem
+
+# box3.0 stand
+Host 10.10.30.*
+	ProxyJump devpoint
+	User centos
+	StrictHostKeyChecking=no
+	UserKnownHostsFile=/dev/null
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+
+
+Host deploy.khorkin-ps-stand1.local
+	User centos
+	Hostname 10.10.30.156
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+	StrictHostKeyChecking=no
+	UserKnownHostsFile=/dev/null
+
+Host stand2
+	User centos
+	Hostname 10.10.30.51
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+	StrictHostKeyChecking=no
+	UserKnownHostsFile=/dev/null
+
+Host keycloak-users
+	User centos
+	Hostname 10.10.30.161
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+	StrictHostKeyChecking=no
+	UserKnownHostsFile=/dev/null
+
+Host ivanov-stand-deploy
+	User centos
+	Hostname 10.10.30.31
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+	StrictHostKeyChecking=no
+	UserKnownHostsFile=/dev/null
+# Grached IAM box3.0 stand
+Host rs1-under-iam
+	HostName 10.10.30.116
+	User centos
+	ForwardAgent yes
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+
+Host deploy-under-iam
+	Hostname 10.10.30.18
+	User centos
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+
+## Undercloud
+Host private-cpn*.private.infra.devmail.ru private-kcn*.private.infra.devmail.ru private-hiops*.private.infra.devmail.ru private-csn*.private.infra.devmail.ru
+	ProxyJump devpoint
+	User kolla
+#10.10.0.131 private-cpn001.private.infra.devmail.ru private-cpn001 
+#10.10.0.132 private-cpn002.private.infra.devmail.ru private-cpn002 
+#10.10.0.133 private-cpn003.private.infra.devmail.ru private-cpn003 
+#10.10.0.139 private-kcn001.private.infra.devmail.ru private-kcn001
+#10.10.0.140 private-kcn002.private.infra.devmail.ru private-kcn002 
+#10.10.0.141 private-kcn003.private.infra.devmail.ru private-kcn003 
+#10.10.0.137 private-hiops001.private.infra.devmail.ru private-hiops001 
+#10.10.0.138 private-hiops002.private.infra.devmail.ru private-hiops002 
+
+## IAM Certification Stand
+Host iam-cert-stand
+	User centos
+	Hostname 10.10.30.51
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+#Front URL: https://overcloud168.private.infra.devmail.ru
+#Admin URL: https://admin-overcloud168.private.infra.devmail.ru
+#Keycloak URL: https://keycloak-overcloud168.private.infra.devmail.ru
+#Zabbix URL: http://mon-overcloud51.private.infra.devmail.ru/zabbix/
+#OpenSearch URL: http://logs-overcloud51.private.infra.devmail.ru
+#Deploy IP: 10.10.30.51
+
+Host security-scan
+	User centos
+	Hostname 10.10.30.70
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+#Front URL: https://overcloud145.private.infra.devmail.ru
+#Admin URL: https://admin-overcloud145.private.infra.devmail.ru
+#Keycloak URL: https://keycloak-overcloud145.private.infra.devmail.ru
+#Zabbix URL: http://mon-overcloud70.private.infra.devmail.ru/zabbix/
+#OpenSearch URL: http://logs-overcloud70.private.infra.devmail.ru
+#Deploy IP: 10.10.30.70
+
+Host hwstand-cpn001.private.infra.devmail.ru hwstand-cpn002.private.infra.devmail.ru hwstand-cpn003.private.infra.devmail.ru
+	User hwstand
+	ProxyJump devpoint
+	IdentityFile ~/.ssh/undercloud-ssh-private-key
+
+Host etalon-hw-deploy
+	Hostname 100.70.0.120
+	User root
+	#pass 949djcnz294ja
+	ProxyJump devpoint
+
+Host build-server-centos7
+	User centos
+	Hostname 109.120.188.15
+	IdentityFile ~/.ssh/khorkin-magnum.pem
+
+Host ams-alma
+	User almalinux
+	Hostname 89.208.219.30
+	IdentityFile ~/.ssh/khorkin-mcs-ams.pem
